@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servidor Mascotas Basadas</title>
+    <style>
+        /* Importa las fuentes */
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        @font-face {
+            font-family: 'MinecraftRegular';
+            src: url('https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/fonts/minecraft-font-regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'VT323', monospace;
+            background-image: url('https://i.pinimg.com/1200x/47/a3/55/47a35578f64cb1ca753cbbaa3cf00bba.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            color: #ece4d7;
+            text-shadow: 2px 2px 4px #000;
+            position: relative;
+        }
+
+        /* Capa de superposición para que el texto sea más legible */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        .main-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            text-align: center;
+            padding: 40px;
+            border-radius: 20px;
+        }
+
+        /* Estilos para el título "Mascotas Basadas" en forma de cinta */
+        .ribbon-title {
+            position: relative;
+            background: #785c41;
+            color: #fff;
+            padding: 15px 40px;
+            font-family: 'MinecraftRegular', sans-serif;
+            font-size: 3.5em;
+            text-shadow: 
+                -3px -3px 0 #333,  
+                3px -3px 0 #333,
+                -3px 3px 0 #333,
+                3px 3px 0 #333,
+                0px 5px 0px rgba(0,0,0,0.5);
+            transform: skew(-10deg) rotate(-3deg);
+            border: 4px solid #4a3928;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+        
+        .ribbon-title::before, .ribbon-title::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 25px;
+            background: #785c41;
+            transform: skew(10deg);
+            border: 4px solid #4a3928;
+            z-index: -1;
+        }
+        
+        .ribbon-title::before {
+            left: -15px;
+            border-right: none;
+        }
+
+        .ribbon-title::after {
+            right: -15px;
+            border-left: none;
+        }
+
+        /* Estilos para el botón con tooltip */
+        .add-button {
+            background-color: #695d4f;
+            color: #ece4d7;
+            padding: 10px 30px;
+            text-decoration: none;
+            font-size: 1.8em;
+            border: 4px solid #3b352c;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-shadow: 2px 2px #3b352c;
+            position: relative; /* Necesario para posicionar el tooltip */
+        }
+        
+        .add-button:hover {
+            background-color: #5a4f44;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            visibility: hidden;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 10;
+            bottom: 120%; /* Posición arriba del botón */
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .add-button:hover .tooltip {
+            visibility: visible;
+        }
+
+        /* Estilos para el Muro Informativo con forma de pergamino más detallado */
+        .scroll-paper {
+            position: relative;
+            width: 550px;
+            max-width: 90%;
+            box-shadow: 0 8px 10px rgba(0,0,0,0.4);
+            border: 2px solid #3b352c;
+            background-color: #fdf5e6;
+            color: #5c4a30;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        /* Rollos de madera */
+        .scroll-paper::before, .scroll-paper::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 105%;
+            height: 30px;
+            background: #785c41;
+            border: 3px solid #4a3928;
+            z-index: 1;
+        }
+
+        .scroll-paper::before {
+            top: -15px;
+            border-radius: 15px 15px 0 0;
+            box-shadow: inset 0 5px 5px rgba(0,0,0,0.2);
+        }
+
+        .scroll-paper::after {
+            bottom: -15px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: inset 0 -5px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* Cuerda de pergamino mejorada, ahora con una cruz más clara y centrada */
+        .scroll-paper-string {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            z-index: 2;
+        }
+
+        .scroll-paper-string::before, .scroll-paper-string::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: #3b352c;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .scroll-paper-string::before {
+            transform: rotate(45deg);
+        }
+        
+        .scroll-paper-string::after {
+            transform: rotate(-45deg);
+        }
+        
+        /* Contenedor del contenido del pergamino */
+        .scroll-content {
+            height: 300px;
+            overflow-y: auto;
+            text-align: left;
+            padding: 10px;
+            line-height: 1.5;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+        }
+        
+        /* Contenedor del subtítulo "Muro Informativo" */
+        .subtitle-box {
+            background-color: #785c41;
+            border: 3px solid #4a3928;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .subtitle-box h2 {
+            font-family: 'MinecraftRegular', sans-serif;
+            font-size: 2em;
+            color: #ece4d7;
+            margin: 0;
+            text-shadow: 2px 2px #3b352c;
+        }
+
+        .scroll-content h3 {
+            font-family: 'MinecraftRegular', sans-serif;
+            font-size: 1.8em;
+            text-align: center;
+            color: #3b352c;
+            margin-top: 0;
+        }
+        
+        .scroll-content p {
+            margin: 0 0 1em 0;
+            text-align: justify;
+        }
+
+        .scroll-controls {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-arrow {
+            background-color: #695d4f;
+            color: #ece4d7;
+            padding: 5px 10px;
+            font-size: 1.8em;
+            border: 4px solid #3b352c;
+            border-radius: 5px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.3s;
+            text-shadow: 2px 2px #3b352c;
+        }
+
+        .nav-arrow:hover {
+            background-color: #5a4f44;
+        }
+
+        .xp-bar-container {
+            width: 150px;
+            height: 12px;
+            background-color: #3b352c;
+            border: 2px solid #4a3928;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .xp-bar {
+            height: 100%;
+            background-image: linear-gradient(90deg, #91b979, #6a8c51);
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <div class="main-container">
+        <div class="ribbon-title">Mascotas Basadas</div>
+        
+        <a href="minecraft://?addExternalServer=Mascotas%20Basadas|based-pets.gl.at.ply.gg:11614" class="add-button">
+            Agregar Server
+            <span class="tooltip">Al darle click se añadirá el server automáticamente a la lista de servers.</span>
+        </a>
+
+        <div class="scroll-paper">
+            <span class="scroll-paper-string"></span>
+            <div class="subtitle-box">
+                <h2>Muro Informativo</h2>
+            </div>
+            <div id="scroll-content" class="scroll-content">
+                <!-- El contenido del muro informativo se inyectará aquí -->
+            </div>
+            <div class="scroll-controls">
+                <span id="prev-btn" class="nav-arrow">←</span>
+                <div class="xp-bar-container">
+                    <div id="xp-bar" class="xp-bar"></div>
+                </div>
+                <span id="next-btn" class="nav-arrow">→</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const TIME_INTERVAL = 15000;
+        let currentItemIndex = 0;
+        let progressInterval;
+
+        const contentDiv = document.getElementById('scroll-content');
+        const xpBar = document.getElementById('xp-bar');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        const infoItems = [
+            {
+                title: "¡Bienvenido!",
+                body: "¡Bienvenido a nuestro servidor! Disfruta de la aventura, explora y haz nuevos amigos. Que comience la diversión."
+            },
+            {
+                title: "¡Evento Semanal!",
+                body: "Únete a nuestro evento semanal este sábado a las 5 PM. Habrá premios increíbles para los ganadores. ¡No te lo pierdas!"
+            },
+            {
+                title: "Actualización 1.2.0",
+                body: "Hemos agregado nuevas mascotas, un bioma de champiñones y se han corregido varios errores. ¡Explora las novedades!"
+            },
+            {
+                title: "Concurso de Construcción",
+                body: "Participa en nuestro concurso de construcción con temática de 'Ciudades Flotantes'. Los ganadores serán anunciados el domingo."
+            }
+        ];
+
+        function updateProgressBar() {
+            let elapsed = 0;
+            clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
+                elapsed += 100;
+                const progress = (elapsed / TIME_INTERVAL) * 100;
+                xpBar.style.width = `${progress}%`;
+
+                if (elapsed >= TIME_INTERVAL) {
+                    showNextItem();
+                }
+            }, 100);
+        }
+
+        function showItem(index) {
+            const item = infoItems[index];
+            contentDiv.innerHTML = `
+                <h3>${item.title}</h3>
+                <p>${item.body}</p>
+            `;
+            updateProgressBar();
+        }
+
+        function showNextItem() {
+            currentItemIndex = (currentItemIndex + 1) % infoItems.length;
+            showItem(currentItemIndex);
+        }
+
+        function showPrevItem() {
+            currentItemIndex = (currentItemIndex - 1 + infoItems.length) % infoItems.length;
+            showItem(currentItemIndex);
+        }
+
+        // Event listeners para los botones de navegación
+        prevBtn.addEventListener('click', showPrevItem);
+        nextBtn.addEventListener('click', showNextItem);
+
+        // Inicia el carrusel al cargar la página
+        window.onload = function() {
+            showItem(currentItemIndex);
+        };
+    </script>
+</body>
+</html>
