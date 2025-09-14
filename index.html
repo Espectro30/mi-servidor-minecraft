@@ -39,7 +39,6 @@
             gap: 25px; text-align: center;
         }
 
-        /* Título Principal */
         .ribbon-title {
             background: #785c41; color: #fff; padding: 15px 40px;
             font-family: 'MinecraftRegular', 'VT323', sans-serif; font-size: 3em;
@@ -48,7 +47,6 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.4); z-index: 2; margin-bottom: 20px;
         }
 
-        /* Botón Agregar Server */
         .add-button {
             background-color: #695d4f; color: #ece4d7; padding: 10px 30px;
             text-decoration: none; font-size: 1.8em; border: 4px solid #3b352c;
@@ -57,9 +55,9 @@
         }
         .add-button:hover { background-color: #5a4f44; }
 
-        /* Muro Informativo (Pergamino) */
+        /* --- INICIO: MEJORAS DEL PERGAMINO --- */
         .scroll-paper {
-            position: relative; width: 550px; max-width: 90%; box-shadow: 0 8px 10px rgba(0,0,0,0.4);
+            position: relative; width: 600px; max-width: 90%; box-shadow: 0 8px 10px rgba(0,0,0,0.4);
             border: 2px solid #3b352c; background-color: #fdf5e6; color: #5c4a30;
             border-radius: 10px; padding: 20px;
         }
@@ -79,18 +77,26 @@
             color: #ece4d7; margin: 0; text-shadow: 2px 2px #3b352c;
         }
         .scroll-content {
-            height: 150px; overflow-y: auto; text-align: left; padding: 10px;
+            height: 220px; /* Aumentamos la altura vertical */
+            overflow-y: auto; text-align: left; padding: 10px;
             line-height: 1.5; background-color: rgba(255, 255, 255, 0.4); border-radius: 8px;
         }
+        /* --- FIN: MEJORAS DEL PERGAMINO --- */
+
+        /* --- INICIO: MEJORA DE NITIDEZ DE LETRAS --- */
         .scroll-content h3 { font-family: 'MinecraftRegular', 'VT323', sans-serif; font-size: 1.8em; text-align: center; color: #3b352c; margin-top: 0; }
-        .scroll-content p { margin: 0 0 1em 0; text-align: justify; }
+        .scroll-content p { 
+            margin: 0 0 1em 0; text-align: justify; font-size: 1.1em; /* Tamaño ligeramente mayor */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Sombra sutil para nitidez */
+        }
+        /* --- FIN: MEJORA DE NITIDEZ DE LETRAS --- */
+
         .scroll-controls { margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .nav-arrow { background-color: #695d4f; color: #ece4d7; padding: 5px 10px; font-size: 1.8em; border: 4px solid #3b352c; border-radius: 5px; cursor: pointer; user-select: none; transition: background-color 0.3s; }
         .nav-arrow:hover { background-color: #5a4f44; }
         .xp-bar-container { width: 150px; height: 12px; background-color: #3b352c; border: 2px solid #4a3928; border-radius: 6px; overflow: hidden; }
         .xp-bar { height: 100%; background-image: linear-gradient(90deg, #91b979, #6a8c51); transition: width 0.5s ease-in-out; }
 
-        /* Estilos para las nuevas secciones */
         .section-container {
             width: 100%; max-width: 800px; background-color: rgba(0,0,0,0.5);
             border: 4px solid #4a3928; border-radius: 15px; padding: 20px;
@@ -101,32 +107,58 @@
             text-align: center; margin-top: 0; margin-bottom: 20px; color: #fff;
         }
 
-        /* Estado del Servidor */
-        .status-box { display: flex; justify-content: space-around; align-items: center; background: #3b352c; padding: 15px; border-radius: 10px; font-size: 1.5em; }
+        .status-box { display: flex; justify-content: space-around; align-items: center; background: #3b352c; padding: 15px; border-radius: 10px; font-size: 1.5em; flex-wrap: wrap; gap: 15px;}
         .status-online { color: #55FF55; }
         .status-offline { color: #FF5555; }
 
-        /* Reglas */
-        .rules-list { list-style: none; padding-left: 0; font-size: 1.4em; }
-        .rules-list li { background-color: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px; margin-bottom: 10px; border-left: 5px solid #785c41; }
+        /* --- INICIO: MEJORA DE NITIDEZ DE LETRAS --- */
+        .rules-list { list-style: none; padding-left: 0; font-size: 1.2em; /* Tamaño ligeramente mayor */ }
+        .rules-list li { 
+            background-color: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px; 
+            margin-bottom: 10px; border-left: 5px solid #785c41;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Sombra sutil para nitidez */
+        }
+        /* --- FIN: MEJORA DE NITIDEZ DE LETRAS --- */
 
-        /* Galería */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
-        .gallery-grid img { width: 100%; height: auto; border-radius: 8px; border: 3px solid #4a3928; cursor: pointer; transition: transform 0.3s; }
+        .gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; border: 3px solid #4a3928; cursor: pointer; transition: transform 0.3s; }
         .gallery-grid img:hover { transform: scale(1.05); }
 
+        /* --- INICIO: ESTILOS PARA LA GALERÍA LIGHTBOX --- */
+        .lightbox {
+            display: none; /* Oculto por defecto */
+            position: fixed; z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center; align-items: center;
+        }
+        .lightbox-content {
+            max-width: 80%; max-height: 80%;
+            border: 8px solid #4a3928;
+            background-color: #3b352c;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .lightbox-close {
+            position: absolute; top: 20px; right: 35px;
+            color: #fff; font-size: 40px; font-weight: bold;
+            cursor: pointer; text-shadow: 0 0 5px #000;
+        }
+        /* --- FIN: ESTILOS PARA LA GALERÍA LIGHTBOX --- */
     </style>
 </head>
 <body>
     <div class="overlay"></div>
 
+    <div id="lightbox" class="lightbox">
+        <span id="lightbox-close" class="lightbox-close">&times;</span>
+        <img id="lightbox-image" class="lightbox-content">
+    </div>
     <div class="page-container">
         <div class="main-container">
             <div class="ribbon-title">Servidor De McBedrock</div>
             <a href="minecraft://?addExternalServer=Servidor%20McBedrock|must-picnic.gl.at.ply.gg:20039" class="add-button">Agregar Server</a>
-            
             <div id="server-status" class="status-box">Cargando estado del servidor...</div>
-
             <div class="scroll-paper">
                 <div class="subtitle-box"><h2>Muro Informativo</h2></div>
                 <div id="scroll-content" class="scroll-content"></div>
@@ -137,21 +169,19 @@
                 </div>
             </div>
         </div>
-
         <div class="section-container">
             <h2 class="section-title">📜 Reglas del Servidor 📜</h2>
             <ul class="rules-list">
                 <li><strong>1. Respeta a todos:</strong> No se tolera el acoso, insultos o cualquier tipo de comportamiento tóxico.</li>
                 <li><strong>2. No al griefing:</strong> Prohibido destruir, robar o modificar construcciones ajenas sin permiso.</li>
-                <li><strong>3. No uses hacks:</strong> Cualquier tipo de trampa, hack o cliente modificado está prohibido y resultará en ban permanente.</li>
+                <li><strong>3. No uses hacks:</strong> Cualquier tipo de trampa o cliente modificado está prohibido y resultará en ban permanente.</li>
                 <li><strong>4. Cuida el entorno:</strong> No dejes árboles flotando y evita construcciones sin sentido que afecten el paisaje.</li>
                 <li><strong>5. Sentido común:</strong> Usa la lógica. Si crees que algo podría estar mal, probablemente lo esté.</li>
             </ul>
         </div>
-
         <div class="section-container">
             <h2 class="section-title">🖼️ Galería del Servidor 🖼️</h2>
-            <div class="gallery-grid">
+            <div id="gallery-grid" class="gallery-grid">
                 <img src="galeria/imagen1.jpg" alt="Construcción en el servidor">
                 <img src="galeria/imagen2.jpg" alt="Evento del servidor">
                 <img src="galeria/imagen3.jpg" alt="Paisaje del servidor">
@@ -163,8 +193,7 @@
     <script>
         // --- SCRIPT DEL MURO INFORMATIVO ---
         const TIME_INTERVAL = 15000;
-        let currentItemIndex = 0;
-        let progressInterval;
+        let currentItemIndex = 0; let progressInterval;
         const contentDiv = document.getElementById('scroll-content');
         const xpBar = document.getElementById('xp-bar');
         const prevBtn = document.getElementById('prev-btn');
@@ -175,22 +204,8 @@
             { title: "✨ Addons Renovados ✨", body: "Hemos actualizado todos nuestros addons a sus últimas versiones para que disfrutes de nuevo contenido y una jugabilidad más fluida. ¡Ve a descubrir las sorpresas!" },
             { title: "🐞 ¿Encontraste un Bug? 🐞", body: "Tu ayuda es muy importante. Si ves algo que no funciona bien, ¡no dudes en informarnos! Juntos hacemos que el servidor sea un lugar mejor para todos." }
         ];
-
-        function updateProgressBar() {
-            let elapsed = 0;
-            clearInterval(progressInterval);
-            progressInterval = setInterval(() => {
-                elapsed += 100;
-                const progress = (elapsed / TIME_INTERVAL) * 100;
-                xpBar.style.width = `${progress}%`;
-                if (elapsed >= TIME_INTERVAL) { showNextItem(); }
-            }, 100);
-        }
-        function showItem(index) {
-            const item = infoItems[index];
-            contentDiv.innerHTML = `<h3>${item.title}</h3><p>${item.body}</p>`;
-            updateProgressBar();
-        }
+        function updateProgressBar() { let elapsed = 0; clearInterval(progressInterval); progressInterval = setInterval(() => { elapsed += 100; const progress = (elapsed / TIME_INTERVAL) * 100; xpBar.style.width = `${progress}%`; if (elapsed >= TIME_INTERVAL) { showNextItem(); } }, 100); }
+        function showItem(index) { const item = infoItems[index]; contentDiv.innerHTML = `<h3>${item.title}</h3><p>${item.body}</p>`; updateProgressBar(); }
         function showNextItem() { currentItemIndex = (currentItemIndex + 1) % infoItems.length; showItem(currentItemIndex); }
         function showPrevItem() { currentItemIndex = (currentItemIndex - 1 + infoItems.length) % infoItems.length; showItem(currentItemIndex); }
         prevBtn.addEventListener('click', showPrevItem);
@@ -199,25 +214,34 @@
 
         // --- SCRIPT DEL ESTADO DEL SERVIDOR ---
         const serverStatusDiv = document.getElementById('server-status');
-        const serverAddress = 'must-picnic.gl.at.ply.gg:20039'; // ¡No olvides cambiar esto por tu IP si es diferente!
-        
-        fetch(`https://api.mcsrvstat.us/3/${serverAddress}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.online) {
-                    serverStatusDiv.innerHTML = `
-                        <span class="status-online">● En Línea</span>
-                        <span>Jugadores: ${data.players.online} / ${data.players.max}</span>
-                        <span>Versión: ${data.version}</span>
-                    `;
-                } else {
-                    serverStatusDiv.innerHTML = `<span class="status-offline">● Desconectado</span>`;
-                }
-            })
-            .catch(error => {
-                serverStatusDiv.innerHTML = `<span class="status-offline">Error al consultar el estado</span>`;
-                console.error('Error:', error);
+        const serverAddress = 'must-picnic.gl.at.ply.gg:20039';
+        fetch(`https://api.mcsrvstat.us/3/${serverAddress}`).then(response => response.json()).then(data => { if (data.online) { serverStatusDiv.innerHTML = `<span class="status-online">● En Línea</span><span>Jugadores: ${data.players.online} / ${data.players.max}</span><span>Versión: ${data.version}</span>`; } else { serverStatusDiv.innerHTML = `<span class="status-offline">● Desconectado</span>`; } }).catch(error => { serverStatusDiv.innerHTML = `<span class="status-offline">Error al consultar el estado</span>`; console.error('Error:', error); });
+
+        // --- INICIO: SCRIPT PARA LA GALERÍA LIGHTBOX ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const galleryImages = document.querySelectorAll('#gallery-grid img');
+        const closeBtn = document.getElementById('lightbox-close');
+
+        galleryImages.forEach(image => {
+            image.addEventListener('click', () => {
+                lightbox.style.display = 'flex'; // Usamos flex para centrar
+                lightboxImage.src = image.src;
             });
+        });
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+        }
+
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            // Cierra el lightbox si se hace clic fuera de la imagen
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        // --- FIN: SCRIPT PARA LA GALERÍA LIGHTBOX ---
     </script>
 </body>
 </html>
