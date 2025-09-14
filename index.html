@@ -213,12 +213,33 @@
         showItem(currentItemIndex);
 
         // --- SCRIPT DEL ESTADO DEL SERVIDOR (Pterodactyl API) ---
-        // --- SCRIPT DEL ESTADO DEL SERVIDOR (Opción 1: Estado Fijo) ---
         const serverStatusDiv = document.getElementById('server-status');
-        serverStatusDiv.innerHTML = `
-            <span class="status-online">● En Línea</span>
-            <span>Versión: 1.21.101</span>
-        `;
+        
+        function fetchServerStatus() {
+            fetch('get_server_status.php')
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Server not online or API error.');
+            })
+            .then(data => {
+                const isOnline = data.attributes.state === 'running';
+                if (isOnline) {
+                    serverStatusDiv.innerHTML = `
+                <span class="status-online">● En Línea</span>
+                <span>Jugadores: ${data.attributes.players.online} / ${data.attributes.players.max}</span>
+                <span>Versión: Bedrock</span>
+            `;
+                } else {
+                    serverStatusDiv.innerHTML = `<span class="status-offline">● Desconectado</span>`;
+                }
+            })
+            .catch(error => {
+                serverStatusDiv.innerHTML = `<span class="status-offline">● Desconectado</span>`;
+                console.error('Error al consultar el estado del servidor:', error);
+            });
+        }
 
         // Llama a la función al cargar la página para que se muestre el estado
         fetchServerStatus();
