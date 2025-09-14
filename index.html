@@ -212,11 +212,50 @@
         nextBtn.addEventListener('click', showNextItem);
         showItem(currentItemIndex);
 
-        // --- SCRIPT DEL ESTADO DEL SERVIDOR ---
+        // --- SCRIPT DEL ESTADO DEL SERVIDOR (Pterodactyl API) ---
         const serverStatusDiv = document.getElementById('server-status');
-        const serverAddress = 'must-picnic.gl.at.ply.gg:20039';
-        fetch(`https://api.mcsrvstat.us/3/${serverAddress}`).then(response => response.json()).then(data => { if (data.online) { serverStatusDiv.innerHTML = `<span class="status-online">● En Línea</span><span>Jugadores: ${data.players.online} / ${data.players.max}</span><span>Versión: ${data.version}</span>`; } else { serverStatusDiv.innerHTML = `<span class="status-offline">● Desconectado</span>`; } }).catch(error => { serverStatusDiv.innerHTML = `<span class="status-offline">Error al consultar el estado</span>`; console.error('Error:', error); });
+        const PTERODACTYL_URL_BASE = 'lists-tapes.gl.at.ply.gg:56304';
+        const PTERODACTYL_SERVER_UUID = 'cb2058b6-aab4-4861-ae4c-361943b01c43';
+        const PTERODACTYL_API_KEY = 'ptlc_orNRiKVnFWGIP8iQknQ0KZDX3os2sDDMfL5dg91j470';
 
+        function fetchServerStatus() {
+            fetch(`${PTERODACTYL_URL_BASE}/api/client/servers/${PTERODACTYL_SERVER_UUID}/utilization`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${PTERODACTYL_API_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'Application/vnd.pterodactyl.v1+json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Server not online or API error.');
+            })
+            .then(data => {
+                const isOnline = data.attributes.state === 'running';
+                if (isOnline) {
+                    serverStatusDiv.innerHTML = `
+                        <span class="status-online">● En Línea</span>
+                        <span>Jugadores: ${data.attributes.players.online} / ${data.attributes.players.max}</span>
+                        <span>Versión: Bedrock</span>
+                    `;
+                } else {
+                    serverStatusDiv.innerHTML = `<span class="status-offline">● Desconectado</span>`;
+                }
+            })
+            .catch(error => {
+                serverStatusDiv.innerHTML = `<span class="status-offline">● Desconectado</span>`;
+                console.error('Error al consultar el estado del servidor:', error);
+            });
+        }
+
+        // Llama a la función al cargar la página para que se muestre el estado
+        fetchServerStatus();
+        // Opcional: actualiza el estado cada 30 segundos
+        setInterval(fetchServerStatus, 30000);
+        
         // --- INICIO: SCRIPT PARA LA GALERÍA LIGHTBOX ---
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightbox-image');
