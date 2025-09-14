@@ -2,7 +2,8 @@
 
 header('Content-Type: application/json');
 
-$PTERODACTYL_URL_BASE = 'http://192.168.20.253:56304';
+// Usamos la IP local y el puerto estándar del demonio de Pterodactyl (Wings)
+$PTERODACTYL_URL_BASE = 'http://192.168.20.253:80';
 $PTERODACTYL_SERVER_UUID = 'cb2058b6-aab4-4861-ae4c-361943b01c43';
 $PTERODACTYL_API_KEY = 'ptlc_orNRiKVnFWGIP8iQknQ0KZDX3os2sDDMfL5dg91j470';
 
