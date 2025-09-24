@@ -33,7 +33,7 @@
             display: flex; flex-direction: column; align-items: center;
             padding: 40px 20px; gap: 40px;
         }
-        
+
         .main-container {
             display: flex; flex-direction: column; align-items: center;
             gap: 25px; text-align: center;
@@ -47,14 +47,21 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.4); z-index: 2; margin-bottom: 20px;
         }
 
-        .add-button {
+        .add-button, .download-button, .back-button {
             background-color: #695d4f; color: #ece4d7; padding: 10px 30px;
             text-decoration: none; font-size: 1.8em; border: 4px solid #3b352c;
             border-radius: 5px; cursor: pointer; transition: background-color 0.3s;
             text-shadow: 2px 2px #3b352c; position: relative;
         }
-        .add-button:hover { background-color: #5a4f44; }
+        .add-button:hover, .download-button:hover, .back-button:hover { background-color: #5a4f44; }
 
+        .button-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
         .scroll-paper {
             position: relative; width: 600px; max-width: 90%; box-shadow: 0 8px 10px rgba(0,0,0,0.4);
             border: 2px solid #3b352c; background-color: #fdf5e6; color: #5c4a30;
@@ -80,7 +87,7 @@
             line-height: 1.5; background-color: rgba(255, 255, 255, 0.4); border-radius: 8px;
         }
         .scroll-content h3 { font-family: 'MinecraftRegular', 'VT323', sans-serif; font-size: 1.8em; text-align: center; color: #3b352c; margin-top: 0; }
-        .scroll-content p { 
+        .scroll-content p {
             margin: 0 0 1em 0; text-align: justify; font-size: 1.1em;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
@@ -105,8 +112,8 @@
         .status-offline { color: #FF5555; }
 
         .rules-list { list-style: none; padding-left: 0; font-size: 1.2em; }
-        .rules-list li { 
-            background-color: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px; 
+        .rules-list li {
+            background-color: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;
             margin-bottom: 10px; border-left: 5px solid #785c41;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
         }
@@ -166,6 +173,81 @@
             }
         }
         /* --- FIN DE ESTILOS DE CARGA --- */
+
+        /* --- ESTILOS PARA LA NUEVA PÁGINA --- */
+        .download-option-container {
+            background-color: rgba(0,0,0,0.5);
+            border: 4px solid #4a3928;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+        .download-option-title {
+            font-family: 'MinecraftRegular', 'VT323', sans-serif;
+            font-size: 2em;
+            text-align: center;
+            color: #fff;
+            margin-top: 0;
+            text-shadow: 2px 2px #3b352c;
+        }
+        .download-guide {
+            background-color: rgba(255,255,255,0.1);
+            border: 2px solid #4a3928;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        .download-guide h3 {
+            font-family: 'MinecraftRegular', 'VT323', sans-serif;
+            color: #ece4d7;
+            text-shadow: 2px 2px #3b352c;
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        .download-list {
+            list-style: none;
+            padding-left: 0;
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+        .download-list li {
+            margin-bottom: 10px;
+            background-color: rgba(255,255,255,0.05);
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .download-link {
+            color: #91b979;
+            text-decoration: underline;
+        }
+        .download-text {
+            color: #fff;
+            text-shadow: 1px 1px 2px #000;
+        }
+        .download-note {
+            font-size: 1.2em; /* Tamaño de fuente más grande */
+            color: #ffde54; /* Color amarillo */
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 15px; /* Añadido para separación si hay notas múltiples */
+            font-weight: bold;
+            text-shadow: 2px 2px 0 #3b352c;
+            background-color: rgba(69, 58, 46, 0.7);
+            border: 3px solid #ffde54;
+            padding: 8px;
+            border-radius: 8px;
+            animation: pulse-note 1.5s infinite ease-in-out; /* Animación */
+        }
+        @keyframes pulse-note {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        /* Ocultar la página de descarga por defecto */
+        #download-page {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -174,10 +256,14 @@
         <span id="lightbox-close" class="lightbox-close">&times;</span>
         <img id="lightbox-image" class="lightbox-content">
     </div>
-    <div class="page-container">
+
+    <div id="main-page" class="page-container">
         <div class="main-container">
             <div class="ribbon-title">Servidor De McBedrock</div>
-            <a href="minecraft://?addExternalServer=Servidor%20McBedrock|must-picnic.gl.at.ply.gg:20039" class="add-button">Agregar Server</a>
+            <div class="button-group">
+                <a href="minecraft://?addExternalServer=Servidor%20McBedrock|must-picnic.gl.at.ply.gg:20039" class="add-button">Agregar Server</a>
+                <button id="show-download-btn" class="download-button">Descargar Minecraft Bedrock Última Versión</button>
+            </div>
             <div id="server-status" class="status-box">
                 <div class="loader-container">
                     <div class="loader-block"></div>
@@ -217,6 +303,53 @@
         </div>
     </div>
 
+    <div id="download-page" class="page-container">
+        <div class="main-container">
+            <div class="ribbon-title">Descargar McBedrock</div>
+            <button id="go-back-btn" class="back-button">← Regresar</button>
+        </div>
+
+        <div class="download-option-container">
+            <h2 class="download-option-title">💻 McBedrock Para PC 💻</h2>
+            <div class="download-guide">
+                <h3 class="download-text">Paso 1: Descarga el Runtime de Windows</h3>
+                <p class="download-text">Es necesario instalar este complemento para que el launcher funcione correctamente.</p>
+                <ul class="download-list">
+                    <li><a href="runtime-8.0.11/windowsdesktop-runtime-8.0.11-win-x86.exe" class="download-link" download>windowsdesktop-runtime-8.0.11-win-x86.exe</a> (32 bits)</li>
+                    <li><a href="runtime-8.0.11/windowsdesktop-runtime-8.0.11-win-x64.exe" class="download-link" download>windowsdesktop-runtime-8.0.11-win-x64.exe</a> (64 bits)</li>
+                </ul>
+                <p class="download-note">
+                    Si no sabes si tu PC es de 32 o 64 bits, busca **"Acerca de tu PC"** en el menú de inicio y mira la sección **"Tipo de sistema"**.
+                </p>
+                <h3 class="download-text">Paso 2: Descarga el BedrockLauncher</h3>
+                <p class="download-text">Una vez instalado el Runtime, descarga el launcher y ejecútalo.</p>
+                <p class="download-text">
+                    <a href="BedrockLauncher/BedrockLauncher 2025.8.25.24.rar" class="download-link" download>BedrockLauncher 2025.8.25.24.rar</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="download-option-container">
+            <h2 class="download-option-title">📱 McBedrock Para Teléfono 📱</h2>
+            <div class="download-guide">
+                <h3 class="download-text">Descarga la versión para tu dispositivo</h3>
+                <ul class="download-list">
+                    <li>
+                        <a href="McBedrockApk/minecraft_1_21_101(compressed_32).apk" class="download-link" download>minecraft_1_21_101(compressed_32).apk</a> (lite)
+                        <p class="download-note">Para dispositivos de extremo antiguo y bajo</p>
+                    </li>
+                    <li>
+                        <a href="McBedrockApk/minecraft_1_21_101(official_64).apk" class="download-link" download>minecraft_1_21_101(official_64).apk</a> (normal)
+                    </li>
+                    <li>
+                        <a href="McBedrockApk/minecraft_1_21_101(compressed_64).apk" class="download-link" download>minecraft_1_21_101(compressed_64).apk</a> (lite)
+                    </li>
+                </ul>
+                <p class="download-note">Las versiones de 64 bits (normal y lite) son para dispositivos nuevos y de alta gama.</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         // SCRIPT DEL MURO INFORMATIVO
         const TIME_INTERVAL = 15000; let currentItemIndex = 0; let progressInterval;
@@ -227,11 +360,10 @@
         function updateProgressBar() { let elapsed = 0; clearInterval(progressInterval); progressInterval = setInterval(() => { elapsed += 100; const progress = (elapsed / TIME_INTERVAL) * 100; xpBar.style.width = `${progress}%`; if (elapsed >= TIME_INTERVAL) { showNextItem(); } }, 100); } function showItem(index) { const item = infoItems[index]; contentDiv.innerHTML = `<h3>${item.title}</h3><p>${item.body}</p>`; updateProgressBar(); } function showNextItem() { currentItemIndex = (currentItemIndex + 1) % infoItems.length; showItem(currentItemIndex); } function showPrevItem() { currentItemIndex = (currentItemIndex - 1 + infoItems.length) % infoItems.length; showItem(currentItemIndex); }
         prevBtn.addEventListener('click', showPrevItem); nextBtn.addEventListener('click', showNextItem); showItem(currentItemIndex);
 
-        // --- SCRIPT DEL ESTADO DEL SERVIDOR (CORREGIDO) ---
+        // --- SCRIPT DEL ESTADO DEL SERVIDOR ---
         const serverStatusDiv = document.getElementById('server-status');
         const serverAddress = 'must-picnic.gl.at.ply.gg:20039';
-        
-        // Usamos el endpoint correcto para Bedrock
+
         fetch(`https://api.mcsrvstat.us/bedrock/3/${serverAddress}`)
             .then(response => response.json())
             .then(data => {
@@ -255,6 +387,22 @@
         galleryImages.forEach(image => { image.addEventListener('click', () => { lightbox.style.display = 'flex'; lightboxImage.src = image.src; }); });
         function closeLightbox() { lightbox.style.display = 'none'; }
         closeBtn.addEventListener('click', closeLightbox); lightbox.addEventListener('click', (e) => { if (e.target === lightbox) { closeLightbox(); } });
+
+        // --- SCRIPT PARA MOSTRAR/OCULTAR SECCIONES ---
+        const mainPage = document.getElementById('main-page');
+        const downloadPage = document.getElementById('download-page');
+        const showDownloadBtn = document.getElementById('show-download-btn');
+        const goBackBtn = document.getElementById('go-back-btn');
+
+        showDownloadBtn.addEventListener('click', () => {
+            mainPage.style.display = 'none';
+            downloadPage.style.display = 'flex';
+        });
+
+        goBackBtn.addEventListener('click', () => {
+            downloadPage.style.display = 'none';
+            mainPage.style.display = 'flex';
+        });
     </script>
 </body>
 </html>
