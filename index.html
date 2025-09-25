@@ -12,9 +12,10 @@
             src: url('https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/fonts/minecraft-font-regular.woff') format('woff');
         }
 
+        /* Estilos Generales */
         body, html {
             margin: 0;
-            font-family: 'VT323', monospace;
+            font-family: 'MinecraftRegular', 'VT323', sans-serif; /* Se agregó VT323 como alternativa */
             background-image: url('https://i.pinimg.com/1200x/47/a3/55/47a35578f64cb1ca753cbbaa3cf00bba.jpg');
             background-position: center;
             background-repeat: no-repeat;
@@ -39,9 +40,11 @@
             gap: 25px; text-align: center;
         }
 
+        /* Título Principal y Botones */
         .ribbon-title {
             background: #785c41; color: #fff; padding: 15px 40px;
-            font-family: 'MinecraftRegular', 'VT323', sans-serif; font-size: 3em;
+            font-family: 'MinecraftRegular', 'VT323', sans-serif;
+            font-size: 3em;
             text-shadow: -3px -3px 0 #333, 3px -3px 0 #333, -3px 3px 0 #333, 3px 3px 0 #333, 0 5px 0 rgba(0,0,0,0.5);
             transform: skew(-10deg) rotate(-3deg); border: 4px solid #4a3928;
             box-shadow: 0 4px 6px rgba(0,0,0,0.4); z-index: 2; margin-bottom: 20px;
@@ -52,16 +55,15 @@
             text-decoration: none; font-size: 1.8em; border: 4px solid #3b352c;
             border-radius: 5px; cursor: pointer; transition: background-color 0.3s;
             text-shadow: 2px 2px #3b352c; position: relative;
+            font-family: 'MinecraftRegular', 'VT323', sans-serif;
         }
         .add-button:hover, .download-button:hover, .back-button:hover { background-color: #5a4f44; }
-
+        
         .button-group {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
         }
         
+        /* Muro Informativo (Scroll Paper) */
         .scroll-paper {
             position: relative; width: 600px; max-width: 90%; box-shadow: 0 8px 10px rgba(0,0,0,0.4);
             border: 2px solid #3b352c; background-color: #fdf5e6; color: #5c4a30;
@@ -79,7 +81,8 @@
             padding: 5px 10px; margin-bottom: 20px; text-align: center;
         }
         .subtitle-box h2 {
-            font-family: 'MinecraftRegular', 'VT323', sans-serif; font-size: 2em;
+            font-family: 'MinecraftRegular', 'VT323', sans-serif;
+            font-size: 2em;
             color: #ece4d7; margin: 0; text-shadow: 2px 2px #3b352c;
         }
         .scroll-content {
@@ -97,30 +100,47 @@
         .xp-bar-container { width: 150px; height: 12px; background-color: #3b352c; border: 2px solid #4a3928; border-radius: 6px; overflow: hidden; }
         .xp-bar { height: 100%; background-image: linear-gradient(90deg, #91b979, #6a8c51); transition: width 0.5s ease-in-out; }
 
+        /* Contenedores de Sección */
         .section-container {
             width: 100%; max-width: 800px; background-color: rgba(0,0,0,0.5);
             border: 4px solid #4a3928; border-radius: 15px; padding: 20px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         }
         .section-title {
-            font-family: 'MinecraftRegular', 'VT323', sans-serif; font-size: 2.5em;
+            font-family: 'MinecraftRegular', 'VT323', sans-serif;
+            font-size: 2.5em;
             text-align: center; margin-top: 0; margin-bottom: 20px; color: #fff;
         }
 
+        /* Estado del Servidor */
         .status-box { display: flex; justify-content: space-around; align-items: center; background: #3b352c; padding: 15px; border-radius: 10px; font-size: 1.5em; flex-wrap: wrap; gap: 15px;}
         .status-online { color: #55FF55; }
         .status-offline { color: #FF5555; }
+        .loader-container { display: flex; align-items: center; gap: 10px; }
+        .loader-text { font-size: 1.2em; color: #ccc; }
+        .loader-block { width: 12px; height: 12px; background-color: #6a8c51; border: 2px solid #3b352c; animation: pulse 1.5s infinite ease-in-out; }
+        .loader-block:nth-child(2) { animation-delay: 0.2s; }
+        .loader-block:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes pulse {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1.2); opacity: 1; }
+        }
 
+        /* Reglas */
         .rules-list { list-style: none; padding-left: 0; font-size: 1.2em; }
         .rules-list li {
-            background-color: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;
+            background-color: rgba(255,255,255,0.3); /* Opacidad aumentada a 0.3 */
+            padding: 10px; border-radius: 5px;
             margin-bottom: 10px; border-left: 5px solid #785c41;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
         }
+
+        /* Galería */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
         .gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; border: 3px solid #4a3928; cursor: pointer; transition: transform 0.3s; }
         .gallery-grid img:hover { transform: scale(1.05); }
 
+        /* Lightbox */
         .lightbox {
             display: none; position: fixed; z-index: 1000;
             left: 0; top: 0; width: 100%; height: 100%;
@@ -129,124 +149,53 @@
         }
         .lightbox-content {
             max-width: 80%; max-height: 80%;
-            border: 8px solid #4a3928;
-            background-color: #3b352c;
-            padding: 8px;
-            border-radius: 5px;
+            border: 8px solid #4a3928; background-color: #3b352c;
+            padding: 8px; border-radius: 5px;
         }
         .lightbox-close {
             position: absolute; top: 20px; right: 35px;
             color: #fff; font-size: 40px; font-weight: bold;
             cursor: pointer; text-shadow: 0 0 5px #000;
         }
-        /* --- ESTILOS PARA LA ANIMACIÓN DE CARGA --- */
-        .loader-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .loader-text {
-            font-size: 1.2em;
-            color: #ccc;
-        }
-        .loader-block {
-            width: 12px;
-            height: 12px;
-            background-color: #6a8c51;
-            border: 2px solid #3b352c;
-            animation: pulse 1.5s infinite ease-in-out;
-        }
-        .loader-block:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        .loader-block:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-        @keyframes pulse {
-            0%, 80%, 100% {
-                transform: scale(0.8);
-                opacity: 0.5;
-            }
-            40% {
-                transform: scale(1.2);
-                opacity: 1;
-            }
-        }
-        /* --- FIN DE ESTILOS DE CARGA --- */
-
-        /* --- ESTILOS PARA LA NUEVA PÁGINA --- */
+        
+        /* Página de Descarga */
+        #download-page { display: none; }
         .download-option-container {
             background-color: rgba(0,0,0,0.5);
-            border: 4px solid #4a3928;
-            border-radius: 15px;
-            padding: 20px;
-            max-width: 600px;
-            width: 100%;
-            margin-bottom: 20px;
+            border: 4px solid #4a3928; border-radius: 15px; padding: 20px;
+            max-width: 600px; width: 100%; margin-bottom: 20px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         }
         .download-option-title {
             font-family: 'MinecraftRegular', 'VT323', sans-serif;
             font-size: 2em;
-            text-align: center;
-            color: #fff;
-            margin-top: 0;
-            text-shadow: 2px 2px #3b352c;
+            text-align: center; color: #fff; margin-top: 0; text-shadow: 2px 2px #3b352c;
         }
         .download-guide {
-            background-color: rgba(255,255,255,0.1);
-            border: 2px solid #4a3928;
-            border-radius: 10px;
-            padding: 15px;
+            background-color: rgba(255,255,255,0.3); /* Opacidad aumentada a 0.3 */
+            border: 2px solid #4a3928; border-radius: 10px; padding: 15px;
         }
         .download-guide h3 {
             font-family: 'MinecraftRegular', 'VT323', sans-serif;
             color: #ece4d7;
-            text-shadow: 2px 2px #3b352c;
-            margin-top: 0;
-            font-size: 1.5em;
+            text-shadow: 2px 2px #3b352c; margin-top: 0; font-size: 1.5em;
         }
-        .download-list {
-            list-style: none;
-            padding-left: 0;
-            font-size: 1.1em;
-            line-height: 1.5;
-        }
+        .download-list { list-style: none; padding-left: 0; font-size: 1.1em; line-height: 1.5; }
         .download-list li {
-            margin-bottom: 10px;
-            background-color: rgba(255,255,255,0.05);
-            padding: 8px;
-            border-radius: 5px;
+            margin-bottom: 10px; background-color: rgba(255,255,255,0.05);
+            padding: 8px; border-radius: 5px;
         }
-        .download-link {
-            color: #91b979;
-            text-decoration: underline;
-        }
-        .download-text {
-            color: #fff;
-            text-shadow: 1px 1px 2px #000;
-        }
+        .download-link { color: #91b979; text-decoration: underline; }
+        .download-text { color: #fff; text-shadow: 1px 1px 2px #000; }
         .download-note {
-            font-size: 1.2em; /* Tamaño de fuente más grande */
-            color: #ffde54; /* Color amarillo */
-            text-align: center;
-            margin-top: 15px;
-            margin-bottom: 15px; /* Añadido para separación si hay notas múltiples */
-            font-weight: bold;
-            text-shadow: 2px 2px 0 #3b352c;
-            background-color: rgba(69, 58, 46, 0.7);
-            border: 3px solid #ffde54;
-            padding: 8px;
-            border-radius: 8px;
-            animation: pulse-note 1.5s infinite ease-in-out; /* Animación */
+            font-size: 1.2em; color: #ffde54; text-align: center; margin-top: 15px;
+            margin-bottom: 15px; font-weight: bold; text-shadow: 2px 2px 0 #3b352c;
+            background-color: rgba(69, 58, 46, 0.7); border: 3px solid #ffde54;
+            padding: 8px; border-radius: 8px; animation: pulse-note 1.5s infinite ease-in-out;
         }
         @keyframes pulse-note {
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.05); opacity: 0.8; }
-        }
-        /* Ocultar la página de descarga por defecto */
-        #download-page {
-            display: none;
         }
     </style>
 </head>
@@ -262,7 +211,7 @@
             <div class="ribbon-title">Servidor De McBedrock</div>
             <div class="button-group">
                 <a href="minecraft://?addExternalServer=Servidor%20McBedrock|must-picnic.gl.at.ply.gg:20039" class="add-button">Agregar Server</a>
-                <button id="show-download-btn" class="download-button">Descargar Minecraft Bedrock Última Versión</button>
+                <button id="show-download-btn" class="download-button">Descargar MCBedrock</button>
             </div>
             <div id="server-status" class="status-box">
                 <div class="loader-container">
@@ -315,8 +264,8 @@
                 <h3 class="download-text">Paso 1: Descarga el Runtime de Windows</h3>
                 <p class="download-text">Es necesario instalar este complemento para que el launcher funcione correctamente.</p>
                 <ul class="download-list">
-                    <li><a href="runtime-8.0.11/windowsdesktop-runtime-8.0.11-win-x86.exe" class="download-link" download>windowsdesktop-runtime-8.0.11-win-x86.exe</a> (32 bits)</li>
-                    <li><a href="runtime-8.0.11/windowsdesktop-runtime-8.0.11-win-x64.exe" class="download-link" download>windowsdesktop-runtime-8.0.11-win-x64.exe</a> (64 bits)</li>
+                    <li><a href="https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/8.0.11/windowsdesktop-runtime-8.0.11-win-x86.exe" class="download-link" download>windowsdesktop-runtime-8.0.11-win-x86.exe</a> (32 bits)</li>
+                    <li><a href="https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/8.0.11/windowsdesktop-runtime-8.0.11-win-x64.exe" class="download-link" download>windowsdesktop-runtime-8.0.11-win-x64.exe</a> (64 bits)</li>
                 </ul>
                 <p class="download-note">
                     Si no sabes si tu PC es de 32 o 64 bits, busca **"Acerca de tu PC"** en el menú de inicio y mira la sección **"Tipo de sistema"**.
@@ -324,7 +273,7 @@
                 <h3 class="download-text">Paso 2: Descarga el BedrockLauncher</h3>
                 <p class="download-text">Una vez instalado el Runtime, descarga el launcher y ejecútalo.</p>
                 <p class="download-text">
-                    <a href="BedrockLauncher/BedrockLauncher 2025.8.25.24.rar" class="download-link" download>BedrockLauncher 2025.8.25.24.rar</a>
+                    <a href="https://download1324.mediafire.com/7o3zkab64qcgByAF2tvIjgYxnVL2DFofFtSMT84W-bKTAeYk5AV2PlWmofs6oBtRumIwJMTXMAqzfHCqcxhto95wiVMQqgcIfu6mI32yOLd2BU_M_pO5pTLcdDHdwTDfZWTNvK1Lql0m-nFOoEOdkBNIDmkd9JtxQovgNMOoaCtaS18/boy2d1dil0xdxdq/BedrockLauncher+2025.8.25.24.rar" class="download-link" download>BedrockLauncher 2025.8.25.24.rar</a>
                 </p>
             </div>
         </div>
@@ -335,32 +284,71 @@
                 <h3 class="download-text">Descarga la versión para tu dispositivo</h3>
                 <ul class="download-list">
                     <li>
-                        <a href="McBedrockApk/minecraft_1_21_101(compressed_32).apk" class="download-link" download>minecraft_1_21_101(compressed_32).apk</a> (lite)
+                        <a href="https://download2390.mediafire.com/c3iozjwucv0gL5_Ttrccauqp-nvuggBc7xJiWBGly2TMd3oMOzxxywbkzYIfsUV3Oa-7jJXQP4k8u_ksq_eickNOdGIKSKlHRpb5PKggcoSCXu3-8313A1Urtm7YzgpdbaOykWzCwgVPscgQQm_exg-iWg3-VJLuyfCJldh5Pnr8diI/ch4z8vu8w3xpj8z/minecraft_1_21_101%28compressed_32%29.apk" class="download-link" download>minecraft_1_21_101(compressed_32).apk</a> (lite)
                         <p class="download-note">Para dispositivos de extremo antiguo y bajo</p>
                     </li>
                     <li>
-                        <a href="McBedrockApk/minecraft_1_21_101(official_64).apk" class="download-link" download>minecraft_1_21_101(official_64).apk</a> (normal)
+                        <a href="https://download2388.mediafire.com/gb7j9r4gtemgnbim1w5fts0fcnTgJHc9-VUr7SnqlfonoH2twg2dUlX-PK7FVfwbhqr4eTzSXnuf2m0s3Ivq3zRjjIVMy7QYaBoElkidfBu_zouvBUAUfkYz6JgQcp_owmIE8yOPeX_n1BYB9aiGHGIWVP0pPmuPsj7U5io1Z2rRv9A/3qflhuby910wyak/minecraft_1_21_101%28compressed_64%29.apk" class="download-link" download>minecraft_1_21_101(compressed_64).apk</a> (lite)
                     </li>
                     <li>
-                        <a href="McBedrockApk/minecraft_1_21_101(compressed_64).apk" class="download-link" download>minecraft_1_21_101(compressed_64).apk</a> (lite)
+                        <a href="https://download2339.mediafire.com/u54pacfr439gZHRMGwiLd3z0jAGwjpJ2QFknsAaaGIqRbvBb3FIGnO2TUVOMQQ3PEDGcRb4BrZkYwJqfp8OkUpOLmjplPXPqLHDGEndbzc1VofhVpM6QtW0bjZ1eMVz_X95FLM01TxTG0aPHH_n60VcPwAh9WsUY_x1f7xSUDWR8lTs/6w9gbxnge1wywg8/minecraft_1_21_101%28official_64%29.apk" class="download-link" download>minecraft_1_21_101(official_64).apk</a> (normal)
                     </li>
                 </ul>
                 <p class="download-note">Las versiones de 64 bits (normal y lite) son para dispositivos nuevos y de alta gama.</p>
             </div>
         </div>
     </div>
-
+    
     <script>
         // SCRIPT DEL MURO INFORMATIVO
-        const TIME_INTERVAL = 15000; let currentItemIndex = 0; let progressInterval;
-        const contentDiv = document.getElementById('scroll-content'); const xpBar = document.getElementById('xp-bar'); const prevBtn = document.getElementById('prev-btn'); const nextBtn = document.getElementById('next-btn');
+        const TIME_INTERVAL = 15000;
+        let currentItemIndex = 0;
+        let progressInterval;
+        const contentDiv = document.getElementById('scroll-content');
+        const xpBar = document.getElementById('xp-bar');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
         const infoItems = [
-            { title: "🎉 ¡Te Damos la Bienvenida! 🎉", body: "¡Qué alegría tenerte aquí! Prepárate para una aventura increíble. Explora, construye amistades y sobre todo, ¡diviértete al máximo en nuestro mundo!" }, { title: "🚀 ¡Servidor Actualizado! 🚀", body: "¡Ya estamos en la versión 1.21.101! Disfruta de todas las novedades y mejoras de rendimiento. Tu experiencia de juego será mejor que nunca." }, { title: "✨ Addons Renovados ✨", body: "Hemos actualizado todos nuestros addons a sus últimas versiones para que disfrutes de nuevo contenido y una jugabilidad más fluida. ¡Ve a descubrir las sorpresas!" }, { title: "🐞 ¿Encontraste un Bug? 🐞", body: "Tu ayuda es muy importante. Si ves algo que no funciona bien, ¡no dudes en informarnos! Juntos hacemos que el servidor sea un lugar mejor para todos." }
+            { title: "🎉 ¡Te Damos la Bienvenida! 🎉", body: "¡Qué alegría tenerte aquí! Prepárate para una aventura increíble. Explora, construye amistades y sobre todo, ¡diviértete al máximo en nuestro mundo!" },
+            { title: "🚀 ¡Servidor Actualizado! 🚀", body: "¡Ya estamos en la versión 1.21.101! Disfruta de todas las novedades y mejoras de rendimiento. Tu experiencia de juego será mejor que nunca." },
+            { title: "✨ Addons Renovados ✨", body: "Hemos actualizado todos nuestros addons a sus últimas versiones para que disfrutes de nuevo contenido y una jugabilidad más fluida. ¡Ve a descubrir las sorpresas!" },
+            { title: "🐞 ¿Encontraste un Bug? 🐞", body: "Tu ayuda es muy importante. Si ves algo que no funciona bien, ¡no dudes en informarnos! Juntos hacemos que el servidor sea un lugar mejor para todos." }
         ];
-        function updateProgressBar() { let elapsed = 0; clearInterval(progressInterval); progressInterval = setInterval(() => { elapsed += 100; const progress = (elapsed / TIME_INTERVAL) * 100; xpBar.style.width = `${progress}%`; if (elapsed >= TIME_INTERVAL) { showNextItem(); } }, 100); } function showItem(index) { const item = infoItems[index]; contentDiv.innerHTML = `<h3>${item.title}</h3><p>${item.body}</p>`; updateProgressBar(); } function showNextItem() { currentItemIndex = (currentItemIndex + 1) % infoItems.length; showItem(currentItemIndex); } function showPrevItem() { currentItemIndex = (currentItemIndex - 1 + infoItems.length) % infoItems.length; showItem(currentItemIndex); }
-        prevBtn.addEventListener('click', showPrevItem); nextBtn.addEventListener('click', showNextItem); showItem(currentItemIndex);
 
-        // --- SCRIPT DEL ESTADO DEL SERVIDOR ---
+        function updateProgressBar() {
+            let elapsed = 0;
+            clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
+                elapsed += 100;
+                const progress = (elapsed / TIME_INTERVAL) * 100;
+                xpBar.style.width = `${progress}%`;
+                if (elapsed >= TIME_INTERVAL) {
+                    showNextItem();
+                }
+            }, 100);
+        }
+
+        function showItem(index) {
+            const item = infoItems[index];
+            contentDiv.innerHTML = `<h3>${item.title}</h3><p>${item.body}</p>`;
+            updateProgressBar();
+        }
+
+        function showNextItem() {
+            currentItemIndex = (currentItemIndex + 1) % infoItems.length;
+            showItem(currentItemIndex);
+        }
+
+        function showPrevItem() {
+            currentItemIndex = (currentItemIndex - 1 + infoItems.length) % infoItems.length;
+            showItem(currentItemIndex);
+        }
+
+        prevBtn.addEventListener('click', showPrevItem);
+        nextBtn.addEventListener('click', showNextItem);
+        showItem(currentItemIndex);
+
+        // SCRIPT DEL ESTADO DEL SERVIDOR
         const serverStatusDiv = document.getElementById('server-status');
         const serverAddress = 'must-picnic.gl.at.ply.gg:20039';
 
@@ -383,12 +371,30 @@
             });
 
         // SCRIPT PARA LA GALERÍA LIGHTBOX
-        const lightbox = document.getElementById('lightbox'); const lightboxImage = document.getElementById('lightbox-image'); const galleryImages = document.querySelectorAll('#gallery-grid img'); const closeBtn = document.getElementById('lightbox-close');
-        galleryImages.forEach(image => { image.addEventListener('click', () => { lightbox.style.display = 'flex'; lightboxImage.src = image.src; }); });
-        function closeLightbox() { lightbox.style.display = 'none'; }
-        closeBtn.addEventListener('click', closeLightbox); lightbox.addEventListener('click', (e) => { if (e.target === lightbox) { closeLightbox(); } });
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const galleryImages = document.querySelectorAll('#gallery-grid img');
+        const closeBtn = document.getElementById('lightbox-close');
 
-        // --- SCRIPT PARA MOSTRAR/OCULTAR SECCIONES ---
+        galleryImages.forEach(image => {
+            image.addEventListener('click', () => {
+                lightbox.style.display = 'flex';
+                lightboxImage.src = image.src;
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+        }
+
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // SCRIPT PARA MOSTRAR/OCULTAR SECCIONES
         const mainPage = document.getElementById('main-page');
         const downloadPage = document.getElementById('download-page');
         const showDownloadBtn = document.getElementById('show-download-btn');
